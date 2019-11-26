@@ -2,6 +2,7 @@
 
 //app dependencies
 const express = require("express");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require ("mongoose");
 
@@ -44,7 +45,7 @@ app.get("/", function(req, res) {
 //route for all refLinks
 app.route("/reflinks")
   //Read route - gets all db entries
-  .get(function(req, res) {
+  .get(cors(), function(req, res) {
     RefLink.find(function(err, foundRefLinks) {
       if (!err) {
         res.send(foundRefLinks);
