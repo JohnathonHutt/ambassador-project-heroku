@@ -17,6 +17,13 @@ app.use(bodyParser.urlencoded({
 }));
 
 
+//configure server to only accept requests from frontend site
+const corsOptions = {
+  origin: 'the-domain-name'
+};
+//once domain name is obtained pass corsOptions into each cors() call -- cors(corsOptions)
+
+
 const port = process.env.PORT || 5000;
 
 
@@ -55,7 +62,7 @@ app.route("/reflinks")
     });
   })
   //Create route - add new db entry
-  .post(function(req, res) {
+  .post(cors(), function(req, res) {
     console.log(req.body.name);
     console.log(req.body.clickNum);
     const newRefLink = new RefLink({
@@ -71,7 +78,7 @@ app.route("/reflinks")
     });
   })
   //delete all entries
-  .delete(function(req, res) {
+  .delete(cors(), function(req, res) {
     RefLink.deleteMany(function(err) {
       if (!err) {
         res.send("Successfully deleted all entries.");
@@ -96,7 +103,7 @@ app.route("/reflinks")
       });
     })
     //Find link by name - update with provided information
-    .patch(function(req, res){
+    .patch(cors(), function(req, res){
       RefLink.update(
         //conditions
         {name: req.params.refLinkName},
@@ -112,7 +119,7 @@ app.route("/reflinks")
       );
     })
     //Find link by name - delete specific entry
-    .delete(function(req, res){
+    .delete(cors(), function(req, res){
       RefLink.deleteOne(
         //conditions
         {title: req.params.refLinkName},
