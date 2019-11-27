@@ -13,10 +13,16 @@ const app = express();
 //use cors
 app.use(cors());
 
-//use body-parser
+//allow OPTIONS on all resources
+app.options('*', cors());
+
+//use body-parser urlencode
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+//use json parsing
+app.use(express.json());
 
 //configure server to only accept requests from frontend site
 // const corsOptions = {
