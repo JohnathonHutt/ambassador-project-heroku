@@ -2,19 +2,23 @@
 
 //app dependencies
 const express = require("express");
-const cors = require("cors");
+// const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require ("mongoose");
+const path = require("path");
 
 
 //set new instance of express
 const app = express();
 
+//set path to client-build (front end) file
+app.use(express.static(path.join(__dirname, "client-build")));
+
 //use cors
-app.use(cors());
+// app.use(cors());
 
 //allow OPTIONS on all resources
-app.options('*', cors());
+// app.options('*', cors());
 
 //use body-parser urlencode
 app.use(bodyParser.urlencoded({
@@ -51,10 +55,11 @@ const refLinkSchema = {
 const RefLink = mongoose.model("RefLink", refLinkSchema);
 
 
-//Test route
+//route for front-end react files
 app.get("/", function(req, res) {
-    res.send("Server is up and running");
+    res.sendFile(path.join(__dirname, "client-build", "index.html"));
 });
+
 
 //route for all entries
 app.route("/reflinks")
