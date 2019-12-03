@@ -2,7 +2,7 @@
 
 //app dependencies
 const express = require("express");
-const cors = require("cors");
+// const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require ("mongoose");
 const path = require("path");
@@ -15,10 +15,10 @@ const app = express();
 app.use(express.static(path.join(__dirname, "client-build")));
 
 //use cors
-app.use(cors());
+// app.use(cors());
 
 //allow OPTIONS on all resources
-app.options('*', cors());
+// app.options('*', cors());
 
 //use body-parser urlencode
 app.use(bodyParser.urlencoded({
