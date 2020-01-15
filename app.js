@@ -54,13 +54,6 @@ const refLinkSchema = {
 
 const RefLink = mongoose.model("RefLink", refLinkSchema);
 
-
-//route for front-end react files
-app.get("/*", function(req, res) {
-    res.sendFile(path.join(__dirname, "client-build", "index.html"));
-});
-
-
 //route for all entries
 app.route("/reflinks")
   //Read route - gets all db entries
@@ -144,6 +137,12 @@ app.route("/reflinks")
         }
       );
     });
+
+
+//route for front-end react files - needs to be last to avoid conflict with other routes
+app.get("/*", function(req, res) {
+    res.sendFile(path.join(__dirname, "client-build", "index.html"));
+});
 
 
 app.listen(port, function(){
